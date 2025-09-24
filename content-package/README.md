@@ -47,16 +47,16 @@ The manifest.json file allows the following settings. Please maintain the values
             // (optional), possible values: none|major|major.minor|all, defaults: all
             "upgradeNotification": "none"
         },
-	// The release Notes of this package. This will be shown when a package has a version to upgrade. 
-	"releaseNotes": [
-	    // releaseNotes is an array, all the below items will be shown as different lines in the version detail.
-	    {
-	       // The title of the item
-	       "title": "Test new card name in 3.0.0"
-	       // The description of the item
-	       "description": "Description explaning what has been added",
-	    },
-	],
+	    // The release Notes of this package. This will be shown when a package has a version to upgrade. 
+	    "releaseNotes": [
+            // releaseNotes is an array, all the below items will be shown as different lines in the version detail.
+            {
+            // The title of the item
+            "title": "Test new card name in 3.0.0"
+            // The description of the item
+            "description": "Description explaning what has been added",
+            },
+	    ],
         // Vendor information of the content package (mandatory)
         "vendor": {
             // The id of the vendor, if any (optional)
@@ -92,10 +92,8 @@ The manifest.json file allows the following settings. Please maintain the values
                 "{{PACKAGE_KEYWORD2}}"
             ]
         },
-
         // The scope of the package delivery. Values: internal|external (mandatory)
         "scope": "external",
-
         //License information
         "license": {
             "text": ""
@@ -118,11 +116,11 @@ The manifest.json file allows the following settings. Please maintain the values
         "documentation": {
             "url": ""
 		},
-		"consumption": [
-			//List of strings that define the Work Zone Product for which this content package should be used
-			//"SWZHR" is used for SAP Work Zone for HR product
-			//If not provided or empty all SAP Work Zone products will be able to install this content package
-		],
+        "consumption": [
+            //List of strings that define the Work Zone Product for which this content package should be used
+            //"SWZHR" is used for SAP Work Zone for HR product
+            //If not provided or empty all SAP Work Zone products will be able to install this content package
+        ],
         // Dependencies of this package
         "dependencies": {
             "applications": [{
@@ -132,7 +130,20 @@ The manifest.json file allows the following settings. Please maintain the values
             "services": [{
                 // services's technical name, for example SAPWorkZoneHR
                 "name": ""
-                }]
+            }]
+        },
+        // Pre-check for a content package
+        "prerequisites": {
+            //If the content package contains apps/cards that requires a destination to the remote system, specify the destinations names here. If this destination is missing in the system, we will render a URL to specify the the help document. 
+            "destinations": [
+                {
+                    "name": "123",
+                    "document": "https://xxx.yyy.zzz"
+                },
+                {
+                    "name": "456"
+                }
+            ]
         }
     }
 }
@@ -170,12 +181,13 @@ Ensure to that you have a valid access to the git repository.
 			"branch": "master",
 			//the path within the repository to execute the build
 			"path": "./",
-			//the build scripts to create the artifact package
+			//the build scripts to create the artifact package, you can leave it blank to use the default build
 			"build": "npm i && npm run-script build",
-			//the location of the artifact's package after the build
+            //Optional: the location of the artifact's package after the build
 			"package": "company-department-card-name.zip",
-			//the location of the manifest to extract the sap.artifact settings for the Content Package
+			//Optional: the location of the manifest to extract the sap.artifact settings for the Content Package
 			"manifest": "src/manifest.json"
+
 		}
 	}
 	...
@@ -203,9 +215,9 @@ Instead of the above git and branch entry you can use the `from` entry to use lo
 			"path": "./",
 			//the build scripts to create the artifact package
 			"build": "npm i && npm run-script build",
-			//the location of the artifact's package after the build
-			"package": "sap-workzone-cpkg-card-sample.zip",
-			//the location of the manifest to extract the sap.artifact settings for the Content Package
+			//Optional: the location of the artifact's package after the build,
+            "package": "sap-workzone-cpkg-card-sample.zip",
+			//Optional: the location of the manifest to extract the sap.artifact settings for the Content Package
 			"manifest": "src/manifest.json"
 		}
 	}
